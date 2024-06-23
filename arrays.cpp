@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <array>
 using namespace std;
 
 const int SIZE = 60;
@@ -10,6 +11,10 @@ const int SIZE = 60;
 const int MAX_PRINTABLE_ASCII = '~';
 const int MIN_PRINTABLE_ASCII = ' ';
 const int ASCII_PRINTABLE_RANGE = MAX_PRINTABLE_ASCII - MIN_PRINTABLE_ASCII + 1;
+
+int main(int argc, char* argv[]) {
+
+}
 
 void printRight(int n) { //TEST
     if(n > 0) {
@@ -36,8 +41,8 @@ void printRight_upsideDown_rightJustified(int n) { //TEST
     } else {}
 }
 
-void printArray(const char arr[], int size) { //CHECK THAT ARR SIZE IS EQUAL TO SIZE IN IF
-    if(size > 0 && size <= SIZE) { 
+void printArray(const char arr[], int size) {
+    if(size > 0 && size <= SIZE && (*(&arr + 1) - arr) == size) { 
         for(int x = 0; x < size; x++) {
             cout << arr[x];
         }
@@ -45,8 +50,8 @@ void printArray(const char arr[], int size) { //CHECK THAT ARR SIZE IS EQUAL TO 
     } else {}
 }
 
-void printArray(const char arr[][SIZE], int rows, int cols) { //CHECK THAT ARR SIZE IS EQUAL TO SIZE IN IF
-    if(cols > 0 && cols <= SIZE) {
+void printArray(const char arr[][SIZE], int rows, int cols) {
+    if(cols > 0 && cols <= SIZE && (*(&arr + 1) - arr) == (rows*cols)) {
         for(int y = 0; y < rows; y++) {
             printArray(arr[y], cols);
             cout << endl;
@@ -54,11 +59,11 @@ void printArray(const char arr[][SIZE], int rows, int cols) { //CHECK THAT ARR S
     } else {}
 }
 
-void add(char arr[], int size, int val) { //CHECK THAT ARR SIZE IS EQUAL TO SIZE IN IF AND ASCII RETRIEVE
+void add(char arr[], int size, int val) {
    int ascii;
-   if(size > 0 && size <= SIZE) {
+   if(size > 0 && size <= SIZE && (*(&arr + 1) - arr) == size) {
         for(int x = 0; x < size; x++) {
-            //GET STUPID ASCII
+            ascii = int(arr[x]);
             ascii += val;
             while(ascii > MAX_PRINTABLE_ASCII || ascii < MIN_PRINTABLE_ASCII) {
                 if(ascii > MAX_PRINTABLE_ASCII) {
@@ -76,10 +81,10 @@ void add(char arr[][SIZE], int rows, int cols, int val) {
 
 }
 
-void rotateLeft(char arr[], int size) { //CHECK THAT ARR SIZE IS EQUAL TO SIZE IN IF (ARE TWO TEMPS NECESSARY?)
+void rotateLeft(char arr[], int size) { //TWO TEMPS??
     char temp1;
     char temp2;
-    if(size>0 && size<=SIZE) {
+    if(size > 0 && size <= SIZE && (*(&arr + 1) - arr) == size) {
         for(int x = size-1; x >= 0; x++) {
             temp1 = arr[x];
             if(x == size-1) {
@@ -92,15 +97,15 @@ void rotateLeft(char arr[], int size) { //CHECK THAT ARR SIZE IS EQUAL TO SIZE I
     }
 }
 
-void rotateLeft(char arr[][SIZE], int rows, int cols) { //CHECK THAT ARR SIZE IS EQUAL TO SIZE IN IF
-    if(cols > 0 && cols <= SIZE) {
+void rotateLeft(char arr[][SIZE], int rows, int cols) { 
+    if(rows > 0 && rows <= SIZE && cols > 0 && cols <= SIZE && (*(&arr + 1) - arr) == (rows*cols)) {
         for(int y = 0; y < rows; y++) {
             rotateLeft(arr[y], cols); 
         }
     } else {}
 }
 
-void rotateRight(char arr[], int size) { //CHECK THAT ARR SIZE IS EQUAL TO SIZE IN IF (WHAT'S THIS GOOFY SOL?)
+void rotateRight(char arr[], int size) {
     char temp1;
     char temp2;
     if(size > 0 && size <= SIZE) {
@@ -115,19 +120,19 @@ void rotateRight(char arr[], int size) { //CHECK THAT ARR SIZE IS EQUAL TO SIZE 
     }
 }
 
-void rotateRight(char arr[][SIZE], int rows, int cols) { //CHECK THAT ARR SIZE IS EQUAL TO SIZE IN IF
-    if(cols > 0 && cols <= SIZE) {
+void rotateRight(char arr[][SIZE], int rows, int cols) { 
+    if(rows > 0 && rows <= SIZE && cols > 0 && cols <= SIZE && (*(&arr + 1) - arr) == (rows*cols)) {
         for(int y = 0; y < rows; y++) {
             rotateRight(arr[y], cols); 
         }
     } else {}
 }
 
-void reverse(char arr[], int size) { //CHECK THAT ARR SIZE IS EQUAL TO SIZE IN IF
+void reverse(char arr[], int size) { 
     int index1;
     int index2;
     char temp;
-    if(size > 0 && size <= SIZE) {
+    if(size > 0 && size <= SIZE && (*(&arr + 1) - arr) == size) {
         for(int x = 0; x < size/2; x++) {
             index1 = x;
             index2 = (size-1)-x;
@@ -139,9 +144,9 @@ void reverse(char arr[], int size) { //CHECK THAT ARR SIZE IS EQUAL TO SIZE IN I
 }
 
 void swapRange(char arr1[], int size1, int index1,
-               char arr2[], int size2, int index2, int len) { //CHECK THAT ARR SIZE IS EQUAL TO SIZE IN IF (FOR BOTH ARRS)
+               char arr2[], int size2, int index2, int len) {
     char temp;
-    if(size1 >= index1+len && size1 > 0 && size1 <= SIZE && size2 >= index2+len && size2 > 0 && size2 <= SIZE && len >= 0) {
+    if(size1 >= index1+len && size1 > 0 && size1 <= SIZE && size2 >= index2+len && size2 > 0 && size2 <= SIZE && len >= 0 && (*(&arr1 + 1) - arr1) == size1  && (*(&arr2 + 1) - arr2) == size2) {
         for(int x = 0; x < len; x++) {
             temp = arr1[index1+x];
             arr1[index1+x] = arr2[index2+x];
@@ -150,14 +155,14 @@ void swapRange(char arr1[], int size1, int index1,
     } else {}
 }
 
-void swapWithinOneRow(char arr[], int size, int len) { //CHECK THAT ARR SIZE IS EQUAL TO SIZE IN IF
-    if(size > 0 && size <= SIZE && size/len > 2) {
+void swapWithinOneRow(char arr[], int size, int len) { 
+    if(size > 0 && size <= SIZE && size/len > 2 && (*(&arr + 1) - arr) == size) {
         
     } else {}
 }
 
-void swapRows(char arr[][SIZE], int rows, int cols) { //CHECK THAT ARR SIZE IS EQUAL TO SIZE IN IF
-    if(rows > 0 && rows <= SIZE && cols > 0 && cols <= SIZE) {
+void swapRows(char arr[][SIZE], int rows, int cols) { 
+    if(rows > 0 && rows <= SIZE && cols > 0 && cols <= SIZE && (*(&arr + 1) - arr) == (rows*cols)) {
         for(int x = 0; x < rows-1; x+=2) {
             swapRange(arr[x], cols, 0, arr[x+1], cols, 0, cols);
         }
