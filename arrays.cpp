@@ -173,7 +173,7 @@ void swapRange(char arr1[], int size1, int index1,
 
 void swapWithinOneRow(char arr[], int size, int len) {
     try {
-        if(size > 0 && size <= SIZE && size/len > 2) {
+        if(size > 0 && size <= SIZE && size/len >= 2) {
             for(int x = 0; x <= size - (2*len); x+=(2*len)) {
                 swapRange(arr, size, x, arr, size, x + len, len);
             }
@@ -191,7 +191,4 @@ void swapRows(char arr[][SIZE], int rows, int cols) {
     } catch(out_of_range) {}
 }
 
-int main(int argc, char* argv[]) {
-    printRight(5);
-}
 #endif
