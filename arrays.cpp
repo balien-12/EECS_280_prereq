@@ -38,133 +38,162 @@ void printRight_upsideDown_rightJustified(int n) { //WE GOOD
 }
 
 void printArray(const char arr[], int size) { //F them pointers
-    if(size > 0 && size <= SIZE && (*(&arr + 1) - arr) == size) { 
-        for(int x = 0; x < size; x++) {
-            cout << arr[x];
-        }
+    try {
+        if(size > 0 && size <= SIZE) { 
+            for(int x = 0; x < size; x++) {
+                cout << arr[x];
+            }
+            cout << endl;
+        } else {}
+    } catch(out_of_range) {
         cout << endl;
-    } else {}
+    }
 }
 
 void printArray(const char arr[][SIZE], int rows, int cols) {
-    if(cols > 0 && cols <= SIZE && (*(&arr + 1) - arr) == (rows*cols)) {
-        for(int y = 0; y < rows; y++) {
-            printArray(arr[y], cols);
-            cout << endl;
-        }
-    } else {}
+    try {
+        if(cols > 0 && cols <= SIZE) {
+            for(int y = 0; y < rows; y++) {
+                printArray(arr[y], cols);
+                cout << endl;
+            }
+        } else {}
+    } catch(out_of_range) {
+        cout << endl;
+    }
 }
 
 void add(char arr[], int size, int val) {
    int ascii;
-   if(size > 0 && size <= SIZE && (*(&arr + 1) - arr) == size) {
-        for(int x = 0; x < size; x++) {
-            ascii = int(arr[x]);
-            ascii += val;
-            while(ascii > MAX_PRINTABLE_ASCII || ascii < MIN_PRINTABLE_ASCII) {
-                if(ascii > MAX_PRINTABLE_ASCII) {
-                    ascii -= ASCII_PRINTABLE_RANGE;
-                } else if(ascii < MIN_PRINTABLE_ASCII) {
-                    ascii += ASCII_PRINTABLE_RANGE;
+   try{
+        if(size > 0 && size <= SIZE) {
+            for(int x = 0; x < size; x++) {
+                ascii = int(arr[x]);
+                ascii += val;
+                while(ascii > MAX_PRINTABLE_ASCII || ascii < MIN_PRINTABLE_ASCII) {
+                    if(ascii > MAX_PRINTABLE_ASCII) {
+                        ascii -= ASCII_PRINTABLE_RANGE;
+                    } else if(ascii < MIN_PRINTABLE_ASCII) {
+                        ascii += ASCII_PRINTABLE_RANGE;
+                    }
                 }
+                arr[x] = char(ascii);
             }
-            arr[x] = char(ascii);
-        }
-   } else {}
+        } else {}
+    } catch(out_of_range) {}
 }
 
 void add(char arr[][SIZE], int rows, int cols, int val) {
-
-}
-
-void rotateLeft(char arr[], int size) { //TWO TEMPS??
-    char temp1;
-    char temp2;
-    if(size > 0 && size <= SIZE && (*(&arr + 1) - arr) == size) {
-        for(int x = size-1; x >= 0; x++) {
-            temp1 = arr[x];
-            if(x == size-1) {
-                arr[x] = arr[0];
-            } else {
-                arr[x] = temp2;
-                temp2 = temp1;
+    try {
+        if(rows > 0 && rows <= SIZE && cols > 0 && cols <= SIZE) {
+            for(int y = 0; y < rows; y++) {
+                add(arr[y], cols, val);
             }
         }
-    }
+    } catch(out_of_range) {}
+}
+
+void rotateLeft(char arr[], int size) {
+    char temp;
+    try {
+        if(size > 0 && size <= SIZE) {
+            temp=arr[0];
+            for(int x = 0; x < size; x++) {
+                if(x<size-1) {
+                    arr[x]=arr[x+1];
+                } else {
+                    arr[x]=temp;
+                }
+            }
+        }
+    } catch(out_of_range) {}
 }
 
 void rotateLeft(char arr[][SIZE], int rows, int cols) { 
-    if(rows > 0 && rows <= SIZE && cols > 0 && cols <= SIZE && (*(&arr + 1) - arr) == (rows*cols)) {
-        for(int y = 0; y < rows; y++) {
-            rotateLeft(arr[y], cols); 
-        }
-    } else {}
+    try { 
+        if(rows > 0 && rows <= SIZE && cols > 0 && cols <= SIZE) {
+            for(int y = 0; y < rows; y++) {
+                rotateLeft(arr[y], cols); 
+            }
+        } else {}
+    } catch(out_of_range) {}    
 }
 
 void rotateRight(char arr[], int size) {
-    char temp1;
-    char temp2;
-    if(size > 0 && size <= SIZE) {
-        for(int x = 0; x < size-1; x++) {
-            temp1=arr[x];
-            if(x == 0) {
-                arr[x] = arr[size-1];
-            } else {
-                arr[x+1] = temp1;
+    char temp;
+    try {
+        if(size > 0 && size <= SIZE) {
+            temp=arr[size-1];
+            for(int x = size-1; x >= 0; x--) {
+                if(x>0) {
+                    arr[x]=arr[x-1];
+                } else {
+                    arr[x]=temp;
+                }
             }
         }
-    }
+    } catch(out_of_range) {}
 }
 
 void rotateRight(char arr[][SIZE], int rows, int cols) { 
-    if(rows > 0 && rows <= SIZE && cols > 0 && cols <= SIZE && (*(&arr + 1) - arr) == (rows*cols)) {
-        for(int y = 0; y < rows; y++) {
-            rotateRight(arr[y], cols); 
-        }
-    } else {}
+    try { 
+        if(rows > 0 && rows <= SIZE && cols > 0 && cols <= SIZE) {
+            for(int y = 0; y < rows; y++) {
+                rotateRight(arr[y], cols); 
+            }
+        } else {}
+    } catch(out_of_range) {}  
 }
 
 void reverse(char arr[], int size) { 
     int index1;
     int index2;
     char temp;
-    if(size > 0 && size <= SIZE && (*(&arr + 1) - arr) == size) {
-        for(int x = 0; x < size/2; x++) {
-            index1 = x;
-            index2 = (size-1)-x;
-            temp = arr[index1];
-            arr[index1] = arr[index2];
-            arr[index2] = temp;
-        }
-    } else {}
+    try{
+        if(size > 0 && size <= SIZE) {
+            for(int x = 0; x < size/2; x++) {
+                index1 = x;
+                index2 = (size-1)-x;
+                temp = arr[index1];
+                arr[index1] = arr[index2];
+                arr[index2] = temp;
+            }
+        } else {}
+    } catch(out_of_range) {}
 }
 
 void swapRange(char arr1[], int size1, int index1,
                char arr2[], int size2, int index2, int len) {
     char temp;
-    if(size1 >= index1+len && size1 > 0 && size1 <= SIZE && size2 >= index2+len && size2 > 0 && size2 <= SIZE && len >= 0 && (*(&arr1 + 1) - arr1) == size1  && (*(&arr2 + 1) - arr2) == size2) {
-        for(int x = 0; x < len; x++) {
-            temp = arr1[index1+x];
-            arr1[index1+x] = arr2[index2+x];
-            arr2[index2+x] = temp;
-        }
-    } else {}
+    try{
+        if(size1 >= index1+len && size1 > 0 && size1 <= SIZE && size2 >= index2+len && size2 > 0 && size2 <= SIZE && len >= 0) {
+            for(int x = 0; x < len; x++) {
+                temp = arr1[index1+x];
+                arr1[index1+x] = arr2[index2+x];
+                arr2[index2+x] = temp;
+            }
+        } else {}
+    } catch(out_of_range) {}
 }
 
 void swapWithinOneRow(char arr[], int size, int len) {
-    if(size > 0 && size <= SIZE && size/len > 2 && (*(&arr + 1) - arr) == size) {
-        for(int x = 0; x <= size - (2*len); x+=(2*len)) {
-            swapRange(arr, size, x, arr, size, x + len, len);
-        }
-    } else {}
+    try {
+        if(size > 0 && size <= SIZE && size/len > 2) {
+            for(int x = 0; x <= size - (2*len); x+=(2*len)) {
+                swapRange(arr, size, x, arr, size, x + len, len);
+            }
+        } else {}
+    } catch(out_of_range) {}
 }
 
 void swapRows(char arr[][SIZE], int rows, int cols) { 
-    if(rows > 0 && rows <= SIZE && cols > 0 && cols <= SIZE && (*(&arr + 1) - arr) == (rows*cols)) {
-        for(int x = 0; x < rows-1; x+=2) {
-            swapRange(arr[x], cols, 0, arr[x+1], cols, 0, cols);
-        }
-    } else {}
+    try {
+        if(rows > 0 && rows <= SIZE && cols > 0 && cols <= SIZE) {
+            for(int x = 0; x < rows-1; x+=2) {
+                swapRange(arr[x], cols, 0, arr[x+1], cols, 0, cols);
+            }
+        } else {}
+    } catch(out_of_range) {}
 }
 
 int main(int argc, char* argv[]) {
