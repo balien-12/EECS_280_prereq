@@ -12,11 +12,7 @@ const int MAX_PRINTABLE_ASCII = '~';
 const int MIN_PRINTABLE_ASCII = ' ';
 const int ASCII_PRINTABLE_RANGE = MAX_PRINTABLE_ASCII - MIN_PRINTABLE_ASCII + 1;
 
-int main(int argc, char* argv[]) {
-
-}
-
-void printRight(int n) { //TEST
+void printRight(int n) { //WE GOOD
     if(n > 0) {
         for(int x = 1; x < n+1; x++) {
            for(int y = x; y > 0; y--) {
@@ -27,7 +23,7 @@ void printRight(int n) { //TEST
     } else {}
 }
 
-void printRight_upsideDown_rightJustified(int n) { //TEST
+void printRight_upsideDown_rightJustified(int n) { //WE GOOD
     if(n > 0) {
         for(int x = n; x > 0; x--) {
            for(int y = 0; y < (n-x); y++) {
@@ -41,7 +37,7 @@ void printRight_upsideDown_rightJustified(int n) { //TEST
     } else {}
 }
 
-void printArray(const char arr[], int size) {
+void printArray(const char arr[], int size) { //F them pointers
     if(size > 0 && size <= SIZE && (*(&arr + 1) - arr) == size) { 
         for(int x = 0; x < size; x++) {
             cout << arr[x];
@@ -155,9 +151,11 @@ void swapRange(char arr1[], int size1, int index1,
     } else {}
 }
 
-void swapWithinOneRow(char arr[], int size, int len) { 
+void swapWithinOneRow(char arr[], int size, int len) {
     if(size > 0 && size <= SIZE && size/len > 2 && (*(&arr + 1) - arr) == size) {
-        
+        for(int x = 0; x <= size - (2*len); x+=(2*len)) {
+            swapRange(arr, size, x, arr, size, x + len, len);
+        }
     } else {}
 }
 
@@ -169,4 +167,7 @@ void swapRows(char arr[][SIZE], int rows, int cols) {
     } else {}
 }
 
+int main(int argc, char* argv[]) {
+    printRight(5);
+}
 #endif
