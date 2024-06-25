@@ -45,9 +45,7 @@ void printArray(const char arr[], int size) { //F them pointers
             }
             cout << endl;
         } else {}
-    } catch(out_of_range) {
-        cout << endl;
-    }
+    } catch(out_of_range) {}
 }
 
 void printArray(const char arr[][SIZE], int rows, int cols) {
@@ -55,7 +53,6 @@ void printArray(const char arr[][SIZE], int rows, int cols) {
         if(cols > 0 && cols <= SIZE) {
             for(int y = 0; y < rows; y++) {
                 printArray(arr[y], cols);
-                cout << endl;
             }
         } else {}
     } catch(out_of_range) {}
