@@ -58,9 +58,7 @@ void printArray(const char arr[][SIZE], int rows, int cols) {
                 cout << endl;
             }
         } else {}
-    } catch(out_of_range) {
-        cout << endl;
-    }
+    } catch(out_of_range) {}
 }
 
 void add(char arr[], int size, int val) {
